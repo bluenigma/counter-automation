@@ -1,0 +1,13 @@
+typ,data = mail.search(None,'All')
+data [b'1 2 3']
+data[0] = b'1 2 3'
+
+data[0].split() = [b'1', b'2', b'3'] = a
+
+typ, content = mail.fetch(b'1','(RFC822)')
+=
+typ, content = mail.fetch(a[0],'(RFC822)')
+
+cont[0] = message as tuple
+cont[0][1] = message as bytes
+str(cont[0][1]) = message as raw string

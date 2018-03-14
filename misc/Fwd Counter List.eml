@@ -1,0 +1,125 @@
+Return-Path: <counter@szulc-serwis.pl>
+Delivered-To: damian@szulc-serwis.pl
+Received: from localhost (HELO queue) (127.0.0.1)
+	by localhost with SMTP; 5 Mar 2018 16:53:43 +0200
+Received: from output21.mail.ovh.net (164.132.34.21)
+  by mail.ovh.net with AES256-GCM-SHA384 encrypted SMTP; 5 Mar 2018 16:53:43 +0200
+Received: from vr13.mail.ovh.net (unknown [10.101.8.13])
+	by out21.mail.ovh.net (Postfix) with ESMTP id CE942237E1D
+	for <damian@szulc-serwis.pl>; Mon,  5 Mar 2018 15:53:42 +0100 (CET)
+Received: from in38.mail.ovh.net (unknown [10.101.4.38])
+	by vr13.mail.ovh.net (Postfix) with ESMTP id B3ABE3CA005F
+	for <damian@szulc-serwis.pl>; Mon,  5 Mar 2018 15:53:42 +0100 (CET)
+X-Comment: SPF check N/A for local connections - client-ip=213.251.189.206; helo=player791.ha.ovh.net; envelope-from=counter@szulc-serwis.pl; receiver=damian@szulc-serwis.pl 
+Received: from player791.ha.ovh.net (gw6.ovh.net [213.251.189.206])
+	by in38.mail.ovh.net (Postfix) with ESMTP id 8D6F9339
+	for <damian@szulc-serwis.pl>; Mon,  5 Mar 2018 15:53:42 +0100 (CET)
+Received: from [192.168.1.20] (unknown [185.47.65.145])
+	(Authenticated sender: counter@szulc-serwis.pl)
+	by player791.ha.ovh.net (Postfix) with ESMTPSA id F2FEA4200A9
+	for <damian@szulc-serwis.pl>; Mon,  5 Mar 2018 15:53:41 +0100 (CET)
+Subject: Fwd: Counter List
+References: <5A970926.001.00206B61C18F.skaner.kopiarka@gmail.com>
+To: damian@szulc-serwis.pl
+From: Counter Szulc Serwis <counter@szulc-serwis.pl>
+X-Forwarded-Message-Id: <5A970926.001.00206B61C18F.skaner.kopiarka@gmail.com>
+Message-ID: <7ce66120-3e92-17b3-f7a6-e0ac42f2f819@szulc-serwis.pl>
+Date: Mon, 5 Mar 2018 15:53:50 +0100
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101
+ Thunderbird/52.6.0
+MIME-Version: 1.0
+In-Reply-To: <5A970926.001.00206B61C18F.skaner.kopiarka@gmail.com>
+Content-Type: multipart/alternative;
+ boundary="------------11A1545C7A25F33AD1E32640"
+Content-Language: pl
+X-Ovh-Tracer-Id: 6482368713772074287
+X-Ovh-Remote: 213.251.189.206 (gw6.ovh.net)
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: 0
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedtfedrjeejgdejvdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecu
+X-Ovh-Spam-Status: OK
+X-Ovh-Spam-Reason: vr: OK; dkim: disabled; spf: disabled
+X-Ovh-Message-Type: OK
+
+This is a multi-part message in MIME format.
+--------------11A1545C7A25F33AD1E32640
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+
+
+
+--- Treść przekazanej wiadomości ---
+Temat: 	Counter List
+Data: 	Wed, 28 Feb 2018 10:59:03 -0800 (PST)
+Nadawca: 	skaner.kopiarka@gmail.com
+Odpowiedź-Do: 	skaner.kopiarka@gmail.com
+Adresat: 	counter@szulc-serwis.pl
+
+
+
+[Model Name],TKKF_Herkules_Koszal
+[Serial Number], A02E020021142
+[Send Date],28/02/18
+[Total Counter],00148798
+[Total Color Counter],00051822
+[Total Black Counter],00096976
+
+
+--------------11A1545C7A25F33AD1E32640
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <p><br>
+    </p>
+    <div class="moz-forward-container"><br>
+      <br>
+      --- Treść przekazanej wiadomości ---
+      <table class="moz-email-headers-table" cellspacing="0"
+        cellpadding="0" border="0">
+        <tbody>
+          <tr>
+            <th nowrap="nowrap" valign="BASELINE" align="RIGHT">Temat: </th>
+            <td>Counter List</td>
+          </tr>
+          <tr>
+            <th nowrap="nowrap" valign="BASELINE" align="RIGHT">Data: </th>
+            <td>Wed, 28 Feb 2018 10:59:03 -0800 (PST)</td>
+          </tr>
+          <tr>
+            <th nowrap="nowrap" valign="BASELINE" align="RIGHT">Nadawca:
+            </th>
+            <td><a class="moz-txt-link-abbreviated" href="mailto:skaner.kopiarka@gmail.com">skaner.kopiarka@gmail.com</a></td>
+          </tr>
+          <tr>
+            <th nowrap="nowrap" valign="BASELINE" align="RIGHT">Odpowiedź-Do:
+            </th>
+            <td><a class="moz-txt-link-abbreviated" href="mailto:skaner.kopiarka@gmail.com">skaner.kopiarka@gmail.com</a></td>
+          </tr>
+          <tr>
+            <th nowrap="nowrap" valign="BASELINE" align="RIGHT">Adresat:
+            </th>
+            <td><a class="moz-txt-link-abbreviated" href="mailto:counter@szulc-serwis.pl">counter@szulc-serwis.pl</a></td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      <br>
+      <pre>[Model Name],TKKF_Herkules_Koszal
+[Serial Number], A02E020021142
+[Send Date],28/02/18
+[Total Counter],00148798
+[Total Color Counter],00051822
+[Total Black Counter],00096976
+
+</pre>
+    </div>
+  </body>
+</html>
+
+--------------11A1545C7A25F33AD1E32640--
