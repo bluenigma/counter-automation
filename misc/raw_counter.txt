@@ -1,6 +1,0 @@
-[Model Name],TKKF_Herkules_Koszal
-[Serial Number], A02E020021142
-[Send Date],28/02/18
-[Total Counter],00148798
-[Total Color Counter],00051822
-[Total Black Counter],00096976
