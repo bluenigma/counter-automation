@@ -6,8 +6,8 @@ from clm import rd
 
 target_server = 'imap.gmail.com'
 target_email = "jdfetpy@gmail.com"
-#target_pwd = getpass.getpass(f'Password for {target_email}: ')
-target_pwd = 'las12345678'
+target_pwd = getpass.getpass(f'Password for {target_email}: ')
+
 
 a = []
 
@@ -27,8 +27,7 @@ def fetch_email():
         print('OK')
         mail.select()
         
-        # http://blog.magiksys.net/parsing-email-using-python-header
-        # http://blog.magiksys.net/parsing-email-using-python-content
+        
         
         typ, data = mail.search(None, 'ALL')
         
@@ -67,75 +66,34 @@ def translate_mails(indata):
     for message in indata:
          listed_data.append(message.split('\\r\\n'))
          
-    for i in range(0,len(listed_data)):
+    
+    for i in range(0,len(listed_data)):    
         for record in listed_data[i]:
             if re.search(r'Model Name',record):
                 name = record.strip("[Model Name],")
                 print(name)
                 b['name'] = name
-            else:
-                name = None
-        for record in listed_data[i]:
-            if re.search(r'Serial Number',record):
+            elif re.search(r'Serial Number',record):
                 sn = record.strip("[Serial Number], ")
                 print(sn)
                 b['sn'] = sn
-            else:
-                sn = None
-        for record in listed_data[i]:       
-            if re.search(r'Send Date',record):
+            elif re.search(r'Send Date',record):
                 send_date = record.strip("[Send Date],")
                 print(send_date)
                 b['send date'] = send_date
-            else:
-                send_date = None
-        for record in listed_data[i]:
-            if re.search(r'Total Color Counter',record):
+            elif re.search(r'Total Color Counter',record):
                 color_total = int(record.strip("[Total Color Counter],"))
                 print(color_total)
                 b['color_total'] = color_total
-            else:
-                color_total = None
-        for record in listed_data[i]:
-            if re.search(r'Total Black Counter',record):
+            elif re.search(r'Total Black Counter',record):
                 black_total = int(record.strip("[Total Black Counter],"))
                 print(black_total)
                 b['black total'] = black_total
+                a.append(rd(sn, name, send_date, color_total, black_total))
             else:
-                black_total = None
-                
-        if name:
-            a.append(rd(sn, name, send_date, color_total, black_total))
+                pass
         
-            
-            #a.append(rd(sn, name, send_date, color_total, black_total))
-            
         
-    #for record, record in listed_data:
-        #if re.search(r'Model Name',record):
-            #name = record.strip("[Model Name],")
-            #print(name)
-            #b['name'] = name
-        #elif re.search(r'Serial Number',record):
-            #sn = record.strip("[Serial Number], ")
-            #print(sn)
-            #b['sn'] = sn
-        #elif re.search(r'Send Date',record):
-            #send_date = record.strip("[Send Date],")
-            #print(send_date)
-            #b['send date'] = send_date
-        #elif re.search(r'Total Color Counter',record):
-            #color_total = int(record.strip("[Total Color Counter],"))
-            #print(color_total)
-            #b['color_total'] = color_total
-        #elif re.search(r'Total Black Counter',record):
-            #black_total = int(record.strip("[Total Black Counter],"))
-            #print(black_total)
-            #b['black total'] = black_total
-        #else:
-            #pass
-        
-        #a.append(rd(sn, name, send_date, color_total, black_total))
     
         
         
