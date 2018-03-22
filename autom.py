@@ -2,11 +2,18 @@ import imaplib
 import email
 import re
 import getpass
-from clm import rd
-
-
 
 a = []
+
+class rd():
+    
+    def __init__(self, sn, name, date, color_total, black_total):
+        self.name = name
+        self.sn = sn
+        self.date = date
+        self.color_total = color_total
+        self.black_total = black_total
+        print(f'{self.name} instance created')
 
 def fetch_email():
     target_server = 'imap.gmail.com'
@@ -41,8 +48,6 @@ def translate_date(sdate):
     final = str(bls1[0] + '-' + bls1[1] + '-' + bls1[2])
     return final
     
-    
-
 def translate_mails(indata):
     b = {}
     listed_data = []
@@ -81,12 +86,9 @@ def translate_mails(indata):
                 a.append(rd(sn, name, date_t, color_total, black_total))
             else:
                 pass
-        
-        
-    
-        
-        
-        
+
+
 if __name__ == '__main__':
     #fetch_email()
     translate_mails(fetch_email())
+    
