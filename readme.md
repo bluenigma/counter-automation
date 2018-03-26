@@ -1,5 +1,4 @@
 Overview
 =====================
-
-This script searches mail inbox for automatic 
-counter notifications from Konica Minolta copiers.
+Searches mail inbox for automatic counter notifications from Konica Minolta copiers.
+Valid results are put into a database.

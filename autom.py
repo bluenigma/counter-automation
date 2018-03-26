@@ -5,7 +5,7 @@ import getpass
 
 a = []
 
-class rd():
+class counter():
     
     def __init__(self, sn, name, date, color_total, black_total):
         self.name = name
@@ -83,7 +83,7 @@ def translate_mails(indata):
                 black_total = int(record.strip("[Total Black Counter],"))
                 print(black_total)
                 b['black total'] = black_total
-                a.append(rd(sn, name, date_t, color_total, black_total))
+                a.append(counter(sn, name, date_t, color_total, black_total))
             else:
                 pass
 
