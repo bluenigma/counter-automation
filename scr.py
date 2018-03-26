@@ -7,7 +7,7 @@ from os.path import exists
 def check_db():
     # Check if database exists, if not, create it
     if not exists('counter_autom.db'):
-        db_init.create_db()
+        os.system('python db_init.py')
     else:
         pass
     
