@@ -4,10 +4,6 @@ import re
 import getpass
 
 a = []
-def read_config():
-    with open(config,'r') as config:
-        for line in config:
-            
 
 class counter():
     def __init__(self, sn, name, date, color_total, black_total):
