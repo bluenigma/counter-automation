@@ -4,9 +4,12 @@ import re
 import getpass
 
 a = []
+def read_config():
+    with open(config,'r') as config:
+        for line in config:
+            
 
 class counter():
-    
     def __init__(self, sn, name, date, color_total, black_total):
         self.name = name
         self.sn = sn
@@ -43,8 +46,11 @@ def fetch_email():
 def translate_date(sdate):
     bls1 = sdate.split('/')
     bls1.reverse()
-    step = '20' + bls1.pop(0)
-    bls1.insert(0,step)
+    if len(str(bls1[0])) == 2:
+        step = '20' + bls1.pop(0)
+        bls1.insert(0,step)
+    else:
+        pass
     final = str(bls1[0] + '-' + bls1[1] + '-' + bls1[2])
     return final
     
@@ -71,7 +77,7 @@ def translate_mails(indata):
                 print(sn)
                 b['sn'] = sn
             elif re.search(r'Send Date',record):
-                send_date = record.strip("[Send Date],")
+                send_date = record.strip("[Send Date],").strip()
                 date_t = translate_date(send_date)
                 print(date_t)
                 b['send date'] = date_t
