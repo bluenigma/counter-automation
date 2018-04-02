@@ -1,0 +1,2 @@
+target_server=imap.gmail.com
+target_email=jdfetpy@gmail.com

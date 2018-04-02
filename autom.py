@@ -13,10 +13,17 @@ class counter():
         self.color_total = color_total
         self.black_total = black_total
         print(f'{self.name} instance created')
-
+        
 def fetch_email():
-    target_server = 'imap.gmail.com'
-    target_email = "jdfetpy@gmail.com"
+    with open('config.txt','r') as config:
+        for line in config:
+            l1 = line.strip().split('=')
+            if l1[0] == 'target_server':
+                target_server = l1[1] 
+            elif l1[0] == 'target_email':
+                target_email = l1[1]
+            else:
+                pass
     target_pwd = getpass.getpass(f'Password for {target_email}: ')
     raw_messages_list = []
     try:
