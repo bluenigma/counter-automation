@@ -11,7 +11,7 @@ Base = declarative_base()
 class Counter(Base):
     __tablename__ = 'counter'
     record_id = Column(Integer, primary_key=True)
-    date = Column(String(20))
+    date = Column(DateTime)
     sn = Column(String(10))
     black_total = Column(Integer)
     color_total = Column(Integer)
@@ -34,4 +34,3 @@ class Client(Base):
 if __name__ == "__main__":
     engine = create_engine('sqlite:///counter_autom.db')
     Base.metadata.create_all(engine)
-    
