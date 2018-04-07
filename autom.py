@@ -2,6 +2,7 @@ import imaplib
 import email
 import re
 import getpass
+from datetime import datetime
 
 a = []
 
@@ -13,13 +14,13 @@ class counter():
         self.color_total = color_total
         self.black_total = black_total
         print(f'{self.name} instance created')
-        
+
 def fetch_email():
     with open('config.txt','r') as config:
         for line in config:
             l1 = line.strip().split('=')
             if l1[0] == 'target_server':
-                target_server = l1[1] 
+                target_server = l1[1]
             elif l1[0] == 'target_email':
                 target_email = l1[1]
             else:
@@ -55,13 +56,13 @@ def translate_date(sdate):
     else:
         pass
     final = str(bls1[0] + '-' + bls1[1] + '-' + bls1[2])
-    return final
-    
+    return datetime.strptime(final,'%Y-%m-%d')
+
 def translate_mails(indata):
     b = {}
     listed_data = []
     c = []
-    
+
     name = None
     sn = None
     send_date = None
@@ -69,7 +70,7 @@ def translate_mails(indata):
     black_total = None
     for message in indata:
          listed_data.append(message.split('\\r\\n'))
-    for i in range(0,len(listed_data)):    
+    for i in range(0,len(listed_data)):
         for record in listed_data[i]:
             if re.search(r'Model Name',record):
                 name = record.strip("[Model Name],")
@@ -100,4 +101,3 @@ def translate_mails(indata):
 if __name__ == '__main__':
     #fetch_email()
     translate_mails(fetch_email())
-    
