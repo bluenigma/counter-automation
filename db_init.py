@@ -30,6 +30,7 @@ class Client(Base):
     name = Column(String(35))
     black_rate = Column(Float)
     color_rate = Column(Float)
+    min_monthly_pay = Column(Integer)
 
 if __name__ == "__main__":
     engine = create_engine('sqlite:///counter_autom.db')
