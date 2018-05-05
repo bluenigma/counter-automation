@@ -1,4 +1,5 @@
 Overview
 =====================
-Searches mail inbox for automatic counter notifications from Konica Minolta copiers.
-Valid results are put into a database.
+Searches mail inbox for automatic counter notifications from Konica Minolta 
+copiers. Intent of this project is to create a copier/printer rental management
+system.
