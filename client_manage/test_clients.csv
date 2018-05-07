@@ -1,0 +1,13 @@
+id,name,black_rate,color_rate,min_monthly_pay
+1,Januszex,0.7,0.12,100
+2,Tomtrans,0.7,0.12,90
+3,Januszpol,0.7,0.12,100
+4,Urząd Pcim,0.7,0.12,100
+5,Dupol Sp.z o.o.,0.7,0.12,110
+6,JP Morgan & Chase,0.8,0.14,100
+7,AT&T,0.8,0.14,120
+8,Polex,0.6,0.12,100
+9,Polpol,0.7,0.12,90
+10,Pol-Pot Sp.K,0.8,0.13,100
+11,Microsoft,0.6,0.11,100
+12,Huang Zhao Inc.,0.7,0.13,80
