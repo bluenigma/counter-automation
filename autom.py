@@ -3,17 +3,9 @@ import email
 import re
 import getpass
 from datetime import datetime
+from db_init import Counter,Base
 
 a = []
-
-class counter():
-    def __init__(self, sn, name, date, color_total, black_total):
-        self.name = name
-        self.sn = sn
-        self.date = date
-        self.color_total = color_total
-        self.black_total = black_total
-        print(f'{self.name} instance created')
 
 def fetch_email():
     with open('config.txt','r') as config:
@@ -93,7 +85,8 @@ def translate_mails(indata):
                 black_total = int(record.strip("[Total Black Counter],"))
                 print(black_total)
                 b['black total'] = black_total
-                a.append(counter(sn, name, date_t, color_total, black_total))
+                a.append(Counter(date=date_t,sn=sn,black_total=black_total,
+                color_total=color_total))
             else:
                 pass
 
