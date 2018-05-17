@@ -43,10 +43,26 @@ def add_raw_unit():
 
 
 def select_unit():
+    # Make selection a list for modifying multiple units.
     criteria = input("Type in full or partial serial number:\n>")
     qry = session.query(Unit).filter(Unit.sn.ilike('%'+criteria+'%')).all()
-    for result in qry:
-        print(result.sn)
+    if len(qry) == 0:
+        print("No unit matching specified criteria.")
+        select_unit()
+    elif len(qry) == 1:
+        print(f"Selected {qry[0].sn} | {qry[0].model}")
+        selection = qry[0]
+        return selection
+    elif len(qry) > 1:
+        for result in qry:
+            print(result.sn)
+    else:
+        raise Exception("Error in unit selection, starting over.")
+        select_unit()
+
+
+
+
 
 
 def modify_existing_unit():
