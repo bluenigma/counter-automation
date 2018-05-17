@@ -12,5 +12,5 @@ a = session.query(Client).filter(Client.ID.in_([b[0]])).all()
 
 
 def querytest():
-    que = session.query(Client).filter(Client.ID.in_(input('?>'))).all()
+    que = session.query(Client).filter(Client.name.ilike('%'+input('?>')+'%')).all()
     return que

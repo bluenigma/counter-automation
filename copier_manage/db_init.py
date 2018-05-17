@@ -24,8 +24,8 @@ class Unit(Base):
     color_count = Column(Integer)
     client_id = Column(Integer)
 
-    def __init__(self):
-        print("New unit created")
+    # def __init__(self,sn,model,black_count,color_count,client_id):
+    #     print("New unit created")
 
     def __repr__(self):
         return f'Unit {self.sn}\nModel {self.model}'
