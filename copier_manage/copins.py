@@ -7,12 +7,15 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
-def add_raw_unit():
+selection = []
+
+def add_unit():
     input_data = {
     'sn':input('Enter serial number: '),
     'model':input('Enter model: '),
-    'black_count':None,
-    'color_count':None,
+    'black_count':input('Black counter: '),
+    'color_count':input('Color counter: '
+    ),
     'client_id':None,
     }
 
@@ -42,26 +45,34 @@ def add_raw_unit():
             pass
 
 
-def select_unit():
-    # Make selection a list for modifying multiple units.
-    criteria = input("Type in full or partial serial number:\n>")
+def select_units():
+    global selection
+    criteria = input("Type in full or partial serial number."
+    " To exit, hit RETURN.\n> ")
+    if len(criteria) == 0:
+        return
+    else:
+        pass
     qry = session.query(Unit).filter(Unit.sn.ilike('%'+criteria+'%')).all()
     if len(qry) == 0:
         print("No unit matching specified criteria.")
-        select_unit()
+        select_units()
     elif len(qry) == 1:
         print(f"Selected {qry[0].sn} | {qry[0].model}")
-        selection = qry[0]
-        return selection
+        selection.append(qry[0].sn)
+        select_units()
     elif len(qry) > 1:
+        print("Multiple units matching:")
         for result in qry:
-            print(result.sn)
+            print(result.sn + " | " + result.model)
+        select_units()
     else:
         raise Exception("Error in unit selection, starting over.")
-        select_unit()
+        select_units()
 
-
-
+def clear_selection():
+    print("Clearing all units from selection.")
+    selection.clear()
 
 
 
