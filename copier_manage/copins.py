@@ -38,7 +38,7 @@ def add_unit():
             )
             session.add(new_unit)
             session.commit()
-            print("New unit created")
+            print("New unit created.")
             break
         elif cnfrm == 'n':
             print('Cancelled.')
@@ -79,8 +79,6 @@ def modify_unit():
 def clear_unit_selection():
     print("Clearing all units from selection.")
     selection_unit.clear()
-
-
 
 def select_client():
     criteria = input("YO!Search client or hit RETURN:\n> ")
