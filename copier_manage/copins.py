@@ -3,11 +3,13 @@ from sqlalchemy.orm import sessionmaker
 from db_init import Unit, Client, Base
 
 engine = create_engine('sqlite:///counter_autom.db')
+
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
-selection = []
+selection_unit = []
+selection_client = []
 
 def add_unit():
     input_data = {
@@ -59,7 +61,7 @@ def select_units():
         select_units()
     elif len(qry) == 1:
         print(f"Selected {qry[0].sn} | {qry[0].model}")
-        selection.append(qry[0].sn)
+        selection_unit.append(qry[0])
         select_units()
     elif len(qry) > 1:
         print("Multiple units matching:")
@@ -76,11 +78,31 @@ def clear_selection():
 
 
 
-def modify_existing_unit():
+def modify_unit():
     pass
 
-def map_unit_to_client():
-    pass
+def select_client():
+    criteria = input("YO!Search client or hit RETURN:\n> ")
+    if len(criteria) == 0:
+        return
+    else:
+        pass
+    qry = (session.query(Client).filter(Client.name.ilike
+        ('%'+criteria+'%')).all())
+    if len(qry) == 0:
+        print("No client matching specified criteria.")
+        select_client()
+    elif len(qry) == 1:
+        selection_client.append(qry[0])
+        print(f'Selected {qry[0].name}. Client ID: {qry[0].ID}')
+    elif len(qry) > 1:
+        print("Multiple units matching:")
+        for result in qry:
+            print(f'ID: {result.ID} | {result.name}')
+        print('Narrow selection to one client.')
+        select_client()
+
+
 
 if __name__ == '__main__':
     pass
