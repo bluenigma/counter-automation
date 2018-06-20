@@ -72,14 +72,15 @@ def select_units():
         raise Exception("Error in unit selection, starting over.")
         select_units()
 
-def clear_selection():
-    print("Clearing all units from selection.")
-    selection.clear()
-
-
-
 def modify_unit():
     pass
+
+
+def clear_unit_selection():
+    print("Clearing all units from selection.")
+    selection_unit.clear()
+
+
 
 def select_client():
     criteria = input("YO!Search client or hit RETURN:\n> ")
@@ -102,7 +103,9 @@ def select_client():
         print('Narrow selection to one client.')
         select_client()
 
-
+def clear_client_selection():
+    print("Clearing client selection.")
+    selection_client.clear()
 
 if __name__ == '__main__':
     pass
