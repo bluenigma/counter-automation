@@ -18,11 +18,18 @@ class Counter(Base):
 
 class Unit(Base):
     __tablename__ = 'unit'
-    sn = Column(String(10), primary_key=True)
+    ID = Column(Integer, primary_key = True)
+    sn = Column(String(10))
     model = Column(String(15))
     black_count = Column(Integer)
     color_count = Column(Integer)
     client_id = Column(Integer)
+
+    # def __init__(self,sn,model,black_count,color_count,client_id):
+    #     print("New unit created")
+
+    def __repr__(self):
+        return f'Unit {self.sn}\nModel {self.model}'
 
 class Client(Base):
     __tablename__ = 'client'
@@ -35,4 +42,3 @@ class Client(Base):
 if __name__ == "__main__":
     engine = create_engine('sqlite:///counter_autom.db')
     Base.metadata.create_all(engine)
-    

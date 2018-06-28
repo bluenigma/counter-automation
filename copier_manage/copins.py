@@ -40,6 +40,15 @@ def add_unit():
         else:
             pass
 
+def remove_unit(selection):
+    for unit in selection:
+        prompt = input(f"Permanently remove {unit.sn} | {unit.model} ?")
+        if prompt == None:
+            session.delete(unit)
+        else:
+            continue
+
+
 
 def select_units():
     global selection
@@ -76,10 +85,19 @@ def clear_unit_selection():
 # --------------------------Modify units---------------------------
 
 def unit_modify_sn(target):
-    # * Warning message
-    # * Modify sn
-    # * Integrity check
-    # * Conflict resolution
+    for unit in target:
+        newsn = input("Insert new serial number:\n> ")
+        qry = session.query(Unit).filter(Unit.sn.ilike(newsn)).all()
+        if len(qry) == 0:
+            unit.sn = newsn
+            session.commit()
+        else:
+            print("New serial number conflicting with existing unit:")
+            for result in qry:
+                print(f'{result.sn} || {result.model} || {result.black_count}\
+                || {result.color_count}')
+            print('Skipping this unit.')
+            continue
     pass
 
 def unit_modify_model(target):
