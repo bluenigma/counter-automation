@@ -89,27 +89,27 @@ def unit_modify_model(target):
 
 def unit_modify_bk(target):
     print("This function let's you modify copier's black count.\n")
-
     try:
         val = int(input("Enter new black counter:\n> "))
+        for unit in target:
+            unit.black_count = val
+            session.commit()
     except ValueError:
         print("Enter a valid number. Starting over.")
-    for unit in target:
-        unit.black_count = val
-        session.commit()
+        unit_modify_bk(target)
 
 
 def unit_modify_col(target):
     print("This function let's you modify copier's color count.\n")
     try:
         val = int(input("Enter new color counter:\n> "))
+        for unit in target:
+            unit.color_count = val
+            session.commit()
     except ValueError:
         print("Enter a valid number. Starting over.")
-        unit_modify_col()
+        unit_modify_col(target)
 
-    for unit in target:
-        unit.color_count = val
-        session.commit()
 
 
 def unit_modify_client_id(target):
@@ -119,14 +119,9 @@ def unit_modify_client_id(target):
         return
     else:
         pass
-
     for unit in target:
         unit.client_id = int(cli.ID)
         session.commit()
-
-
-
-
 
 # --------------------------------------------------------------
 def select_client():
