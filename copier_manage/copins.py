@@ -76,8 +76,10 @@ def clear_unit_selection():
 # --------------------------Modify units---------------------------
 
 def unit_modify_sn(target):
-    # Can't be implemented until database schema is changed. sn is the primary
-    # key for the table.
+    # * Warning message
+    # * Modify sn
+    # * Integrity check
+    # * Conflict resolution
     pass
 
 def unit_modify_model(target):
@@ -151,8 +153,8 @@ def clear_client_selection():
     selection_client.clear()
 
 # ---------------------------------------------------------------
-select_units()
-unit_modify_client_id(selection_unit)
+# select_units()
+# unit_modify_client_id(selection_unit)
 
 # ---------------------------------------------------------------
 if __name__ == '__main__':

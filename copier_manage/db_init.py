@@ -18,7 +18,8 @@ class Counter(Base):
 
 class Unit(Base):
     __tablename__ = 'unit'
-    sn = Column(String(10), primary_key=True)
+    ID = Column(Integer, primary_key = True)
+    sn = Column(String(10))
     model = Column(String(15))
     black_count = Column(Integer)
     color_count = Column(Integer)
