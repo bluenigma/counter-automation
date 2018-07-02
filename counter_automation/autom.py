@@ -1,7 +1,4 @@
-import imaplib
-import email
-import re
-import getpass
+import imaplib, email, re, getpass
 from datetime import datetime
 from db_init import Counter,Base
 
