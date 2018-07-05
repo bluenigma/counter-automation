@@ -5,7 +5,7 @@ from db_init import Counter,Base
 a = []
 
 def fetch_email():
-    with open('config.txt','r') as config:
+    with open('../config.txt','r') as config:
         for line in config:
             l1 = line.strip().split('=')
             if l1[0] == 'target_server':
