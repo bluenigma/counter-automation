@@ -11,15 +11,22 @@ session = DBSession()
 selection_unit = []
 selection_client = []
 
+class UniqueError(Exception):
+    '''Unit with given serial number already exists in database.'''
+
 def add_unit():
     input_data = {
     'sn':input('Enter serial number: '),
+    'vendor':None,
     'model':input('Enter model: '),
     'black_count':input('Black counter: '),
-    'color_count':input('Color counter: '
-    ),
+    'color_count':input('Color counter: '),
     'client_id':None,
     }
+
+    qry = session.query(Unit).filter(Unit.sn.ilike(input_data['sn'])).first()
+    if qry != None:
+        raise UniqueError(f"Serial number {input_data['sn']} already exists.")
 
     while True:
         cnfrm = input('Confirm new unit? (y/n)\n')
@@ -142,6 +149,7 @@ def unit_modify_client_id(target):
     for unit in target:
         unit.client_id = int(cli.ID)
         session.commit()
+
 
 # --------------------------------------------------------------
 def select_client():
