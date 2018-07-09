@@ -29,10 +29,8 @@ class Unit(Base):
     __tablename__ = 'units'
     id = Column(Integer, Sequence('unit_id_seq'), primary_key=True)
     sn = Column(String(25), unique=True)
+    vendor = Column(String(50))
     model = Column(String(25))
-    city = Column(String(50))
-    street = Column(String(50))
-    location = Column(String(50))
     black_count = Column(Integer)
     color_count = Column(Integer)
     client_id = Column(Integer, ForeignKey('clients.id'))
