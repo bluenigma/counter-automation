@@ -1,20 +1,20 @@
-import imaplib, email, re, getpass
+import imaplib, email, re, getpass, configparser
 from datetime import datetime
 from db_init import Counter,Base
+
+config = configparser.ConfigParser()
+config.read('parameters.conf')
+target_server = config['DEFAULT']['imap_server']
+target_email = config['DEFAULT']['mail_address']
+
 
 a = []
 
 def fetch_email():
-    with open('../config.txt','r') as config:
-        for line in config:
-            l1 = line.strip().split('=')
-            if l1[0] == 'target_server':
-                target_server = l1[1]
-            elif l1[0] == 'target_email':
-                target_email = l1[1]
-            else:
-                pass
-    target_pwd = getpass.getpass(f'Password for {target_email}: ')
+    if len(config['DEFAULT']['email_password']) == 0:
+        target_pwd = getpass.getpass(f'Password for {target_email}: ')
+    else:
+        target_pwd = config['DEFAULT']['email_password']
     raw_messages_list = []
     try:
         print(f"Logging in to {target_server}")
