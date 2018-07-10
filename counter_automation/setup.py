@@ -13,9 +13,6 @@ while True:
         break
     else:
         continue
-
-
-
 config = configparser.ConfigParser()
 config['DEFAULT'] = {'database' : 'counter_autom.db',
                     'mail_address' : mail_address,
