@@ -13,17 +13,19 @@ selection_client = []
 
 class UniqueError(Exception):
     '''Unit with given serial number already exists in database.'''
+# -----------------------------Selector class-----------------------------------
 
+
+# ------------------------------------------------------------------------------
 def add_unit():
     input_data = {
     'sn':input('Enter serial number: '),
-    'vendor':None,
+    'vendor':input('Enter vendor: '),
     'model':input('Enter model: '),
     'black_count':input('Black counter: '),
     'color_count':input('Color counter: '),
-    'client_id':None,
+    'client_id':None
     }
-
     qry = session.query(Unit).filter(Unit.sn.ilike(input_data['sn'])).first()
     if qry != None:
         raise UniqueError(f"Serial number {input_data['sn']} already exists.")
@@ -54,8 +56,6 @@ def remove_unit(selection):
             session.delete(unit)
         else:
             continue
-
-
 
 def select_units():
     global selection
@@ -88,11 +88,10 @@ def select_units():
 def clear_unit_selection():
     print("Clearing all units from selection.")
     selection_unit.clear()
-
 # --------------------------Modify units---------------------------
 
-def unit_modify_sn(target):
-    for unit in target:
+def unit_modify_sn(selection):
+    for unit in selection:
         newsn = input("Insert new serial number:\n> ")
         qry = session.query(Unit).filter(Unit.sn.ilike(newsn)).all()
         if len(qry) == 0:
@@ -107,50 +106,52 @@ def unit_modify_sn(target):
             continue
     pass
 
-def unit_modify_model(target):
-    print("This function let's you modify copier's model.\n")
+def unit_modify_vendor(selection):
+    '''This function let's you modify copier's vendor.'''
+    val = input("Enter new vendor:\n> ")
+    for unit in selection:
+        unit.vendor = val
+        session.commit()
+
+def unit_modify_model(selection):
+    '''This function let's you modify copier's model.'''
     val = input("Enter new model:\n> ")
-    for unit in target:
+    for unit in selection:
         unit.model = val
         session.commit()
 
-def unit_modify_bk(target):
-    print("This function let's you modify copier's black count.\n")
+def unit_modify_bk(selection):
+    '''This function let's you modify copier's black count.'''
     try:
         val = int(input("Enter new black counter:\n> "))
-        for unit in target:
+        for unit in selection:
             unit.black_count = val
             session.commit()
     except ValueError:
         print("Enter a valid number. Starting over.")
-        unit_modify_bk(target)
+        unit_modify_bk(selection)
 
-
-def unit_modify_col(target):
-    print("This function let's you modify copier's color count.\n")
+def unit_modify_col(selection):
+    '''This function let's you modify copier's color count.'''
     try:
         val = int(input("Enter new color counter:\n> "))
-        for unit in target:
+        for unit in selection:
             unit.color_count = val
             session.commit()
     except ValueError:
         print("Enter a valid number. Starting over.")
-        unit_modify_col(target)
+        unit_modify_col(selection)
 
-
-
-def unit_modify_client_id(target):
-    print("This function let's you assign copier or copiers to a client.\n")
+def unit_modify_client_id():
+    '''This function let's you assign copier or copiers to a client.'''
     cli = select_client()
     if cli == "Cancelled.":
         return
     else:
         pass
     for unit in target:
-        unit.client_id = int(cli.ID)
+        unit.client_id = int(cli.id)
         session.commit()
-
-
 # --------------------------------------------------------------
 def select_client():
     criteria = input("Select a client or hit RETURN:\n> ")
@@ -177,11 +178,6 @@ def select_client():
 def clear_client_selection():
     print("Clearing client selection.")
     selection_client.clear()
-
-# ---------------------------------------------------------------
-# select_units()
-# unit_modify_client_id(selection_unit)
-
 # ---------------------------------------------------------------
 if __name__ == '__main__':
     pass
