@@ -35,7 +35,7 @@ class Unit(Base):
     color_count = Column(Integer)
     client_id = Column(Integer, ForeignKey('clients.id'))
 
-    counters = relationship('Counter', back_populates='counter')
+    counters = relationship('Counter', back_populates='unit')
     client = relationship('Client', back_populates='units')
 
     def __repr__(self):
