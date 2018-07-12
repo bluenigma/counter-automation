@@ -17,13 +17,13 @@ class Counter(Base):
     black_total = Column(Integer)
     color_total = Column(Integer)
 
-    counter = relationship('Unit', back_populates='counters')
+    unit = relationship('Unit', back_populates='counters')
 
     def __repr__(self):
         return(
-        f'<{self.date}> Counter report <{self.id}> \
-        Black {self.black_total}, Color {self.color_total}'
-        )
+        f'<{self.date}> Counter report No. {self.id}'
+        f'<Black: {self.black_total}>'
+        f'<Color: {self.color_total}>')
 
 class Unit(Base):
     __tablename__ = 'units'
@@ -39,7 +39,7 @@ class Unit(Base):
     client = relationship('Client', back_populates='units')
 
     def __repr__(self):
-        return(f'Unit {self.sn}\nModel {self.model}')
+        return(f'<Unit: {self.sn}, Model: {self.model}>')
 
 class Client(Base):
     __tablename__ = 'clients'
