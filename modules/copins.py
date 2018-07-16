@@ -231,7 +231,7 @@ def client_modify_colorrate(selection):
         session.commit()
 
 def client_modify_min_monthly(selection):
-new_minmonth = input("New minimal monthly payment: ")
+    new_minmonth = input("New minimal monthly payment: ")
     try:
         new_minmonth = int(new_minmonth)
     except ValueError:
