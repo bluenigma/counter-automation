@@ -1,8 +1,8 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from db_init import Unit, Client, Base
+from modules.db_init import Unit, Client, Base
 
-engine = create_engine('sqlite:///counter_autom.db')
+engine = create_engine('sqlite:///modules/counter_autom.db')
 
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
@@ -14,8 +14,21 @@ selection_client = []
 class UniqueError(Exception):
     '''Unit with given serial number already exists in database.'''
 # -----------------------------Selector class-----------------------------------
+class Selector(object):
+    '''Selector for units and clients. Intended to replace select functions'''
+    def __init__(self,table,column,criteria):
+        self.table = table
+        self.column = column
+        self.criteria = criteria
 
+    def Fetch(self):
+        qry = session.query(self.table).filter(self.column.ilike('%'+self.criteria+'%')).all()
+        self.qry = qry
+        return qry
+        # AttributeError: type object 'Selector' has no attribute 'table'
 
+    def __repr__(self):
+        pass
 # ------------------------------------------------------------------------------
 def add_unit():
     input_data = {
@@ -142,14 +155,14 @@ def unit_modify_col(selection):
         print("Enter a valid number. Starting over.")
         unit_modify_col(selection)
 
-def unit_modify_client_id():
+def unit_modify_client_id(selection):
     '''This function let's you assign copier or copiers to a client.'''
     cli = select_client()
     if cli == "Cancelled.":
         return
     else:
         pass
-    for unit in target:
+    for unit in selection:
         unit.client_id = int(cli.id)
         session.commit()
 # --------------------------------------------------------------
@@ -165,19 +178,69 @@ def select_client():
         print("No client matching specified criteria.")
         select_client()
     elif len(qry) == 1:
-        # selection_client.append(qry[0])
-        print(f'Selected {qry[0].name}. Client ID: {qry[0].ID}')
+        selection_client.append(qry[0])
         return(qry[0])
     elif len(qry) > 1:
         print("Multiple clients matching:")
         for result in qry:
-            print(f'ID: {result.ID} | {result.name}')
+            print(f'ID: {result.id} | {result.name}')
         print('Narrow selection to one client.')
         select_client()
 
 def clear_client_selection():
     print("Clearing client selection.")
     selection_client.clear()
+
+def add_client(name,black_rate,color_rate,min_monthly_pay):
+    '''Add new client'''
+    # ensure floats at black_rate and color_rate
+    new_client = Client(
+    name = name,
+    black_rate = black_rate,
+    color_rate = color_rate,
+    min_monthly_pay = min_monthly_pay
+    )
+    session.add(new_client)
+    session.commit()
+
+def client_modify_name(selection):
+    # This function should accept only single argument
+    pass
+
+def client_modify_blackrate(selection):
+    new_rate = input("New rates for black page: ")
+    try:
+        new_rate = float(new_rate.replace(',','.'))
+    except ValueError:
+        print("Insert a valid number.")
+        return(client_modify_blackrate(selection))
+    for client in selection:
+        client.black_rate = new_rate
+        session.commit()
+
+
+def client_modify_colorrate(selection):
+    new_rate = input("New rates for color page: ")
+    try:
+        new_rate = float(new_rate.replace(',','.'))
+    except ValueError:
+        print("Insert a valid number.")
+        return(client_modify_colorrate(selection))
+    for client in selection:
+        client.color_rate = new_rate
+        session.commit()
+
+def client_modify_min_monthly(selection):
+new_minmonth = input("New minimal monthly payment: ")
+    try:
+        new_minmonth = int(new_minmonth)
+    except ValueError:
+        print("Insert a valid number.")
+        return(client_modify_min_monthly(selection))
+    for client in selection:
+        client.min_monthly_pay = new_minmonth
+        session.commit()
+
 # ---------------------------------------------------------------
 if __name__ == '__main__':
     pass
