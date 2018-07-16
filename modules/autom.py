@@ -1,6 +1,6 @@
 import imaplib, email, re, getpass, configparser
-from datetime import datetime
-from db_init import Counter,Base
+from datetime import datetime, date
+from modules.db_init import Counter,Base
 
 config = configparser.ConfigParser()
 config.read('modules/parameters.conf')
@@ -45,7 +45,7 @@ def translate_date(sdate):
     else:
         pass
     final = str(bls1[0] + '-' + bls1[1] + '-' + bls1[2])
-    return datetime.strptime(final,'%Y-%m-%d')
+    return datetime.strptime(final,'%Y-%m-%d').date()
 
 def translate_mails(indata):
     b = {}
