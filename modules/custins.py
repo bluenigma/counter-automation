@@ -1,20 +1,16 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from db_init import Client, Base
+from modules.db_init import Client, Base
 from sys import argv
 import csv
 
-# Script that populates clients table in database
-# uses a csv file as an argument
-
-script, csvfile = argv
-
-engine = create_engine('sqlite:///counter_autom.db')
+engine = create_engine('sqlite:///modules/counter_autom.db')
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 def populate_clients():
+    '''Populates clients table using data from csv file.'''
     with open(csvfile, 'r') as infile:
         reader = csv.reader(infile)
         next(reader)
@@ -29,6 +25,6 @@ def populate_clients():
             session.add(new_client)
             session.commit()
 
-
 if __name__ == '__main__':
+    script, csvfile = argv
     populate_clients()
