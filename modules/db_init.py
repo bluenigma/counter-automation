@@ -55,5 +55,5 @@ class Client(Base):
         return(f'<Client: [{self.name}]>')
 
 if __name__ == "__main__":
-    engine = create_engine('sqlite:///counter_autom.db')
+    engine = create_engine('sqlite:///modules/counter_autom.db')
     Base.metadata.create_all(engine)

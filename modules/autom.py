@@ -3,7 +3,7 @@ from datetime import datetime
 from db_init import Counter,Base
 
 config = configparser.ConfigParser()
-config.read('parameters.conf')
+config.read('modules/parameters.conf')
 target_server = config['DEFAULT']['imap_server']
 target_email = config['DEFAULT']['mail_address']
 

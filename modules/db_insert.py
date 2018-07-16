@@ -1,10 +1,10 @@
 from os import system
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from db_init import Counter, Base
+from modules.db_init import Counter, Base
 
 
-engine = create_engine('sqlite:///counter_autom.db')
+engine = create_engine('sqlite:///modules/counter_autom.db')
 Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
