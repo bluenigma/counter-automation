@@ -1,7 +1,7 @@
 import os
 import sys
 from sqlalchemy import (Column, ForeignKey, Integer, String, Float,
-DateTime, ForeignKey, Sequence)
+Date, ForeignKey, Sequence)
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
@@ -12,7 +12,7 @@ Base = declarative_base()
 class Counter(Base):
     __tablename__ = 'counters'
     id = Column(Integer, Sequence('counter_id_seq'), primary_key=True)
-    date = Column(String(20))
+    date = Column(Date)
     sn = Column(String(25), ForeignKey('units.sn'))
     black_total = Column(Integer)
     color_total = Column(Integer)
