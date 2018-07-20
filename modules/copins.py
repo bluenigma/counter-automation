@@ -30,27 +30,20 @@ class Selector(object):
     def __repr__(self):
         pass
 # ------------------------------------------------------------------------------
-def add_unit():
-    input_data = {
-    'sn':input('Enter serial number: '),
-    'vendor':input('Enter vendor: '),
-    'model':input('Enter model: '),
-    'black_count':input('Black counter: '),
-    'color_count':input('Color counter: '),
-    'client_id':None
-    }
-    qry = session.query(Unit).filter(Unit.sn.ilike(input_data['sn'])).first()
+def add_unit(sn, vendor, model, black_count, color_count):
+    qry = session.query(Unit).filter(Unit.sn.ilike(sn)).first()
     if qry != None:
-        raise UniqueError(f"Serial number {input_data['sn']} already exists.")
+        raise UniqueError(f"Serial number {sn} already exists.")
 
     while True:
         cnfrm = input('Confirm new unit? (y/n)\n')
         if cnfrm == 'y':
             new_unit = Unit(
-            sn = input_data['sn'],
-            model = input_data['model'],
-            black_count = input_data['black_count'],
-            color_count = input_data['color_count'],
+            sn = sn,
+            vendor = vendor,
+            model = model,
+            black_count = black_count,
+            color_count = color_count,
             )
             session.add(new_unit)
             session.commit()
@@ -65,8 +58,9 @@ def add_unit():
 def remove_unit(selection):
     for unit in selection:
         prompt = input(f"Permanently remove {unit.sn} | {unit.model} ?")
-        if prompt == None:
+        if len(prompt) == 0:
             session.delete(unit)
+            session.commit()
         else:
             continue
 
