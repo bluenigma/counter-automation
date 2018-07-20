@@ -1,3 +1,14 @@
+'''
+Populates clients table using data from csv file. Intention of this
+simple module is to quickly fill database with some dummy data for testing.
+This module takes path to a csv file as an argument.
+==============================================================================
+Column structure:
+
+    id | name | black_rate | color_rate | min_monthly_pay
+
+First row is skipped.
+'''
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from modules.db_init import Client, Base
@@ -10,7 +21,6 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 def populate_clients():
-    '''Populates clients table using data from csv file.'''
     with open(csvfile, 'r') as infile:
         reader = csv.reader(infile)
         next(reader)
