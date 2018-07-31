@@ -30,13 +30,27 @@ def populate(sn,black,color):
     session.commit()
 
 qry = session.query(Counter).filter(and_(Counter.date>=limiter_low,
-                                        Counter.date<limiter_high))
+                                        Counter.date<limiter_high)).all()
+def remove_duplicate_sn(dbquery):
+    a = []
+    for obj in dbquery:
+        a.append(obj.sn)
+    b = list(set(a))
+    print("Removed {} redundant entries.".format(len(dbquery)-len(b)))
+    return(b)
 
-for obj in qry:
-    print(obj,"//////", obj.sn)
 
-# reports #205 and #208 contain identical serial number, UNIQUE error
+clean_feed = remove_duplicate_sn(qry)
+ll = []
+for obj in clean_feed:
+    qry2 = session.query(Counter).filter(Counter.sn.like(obj)).order_by(
+        Counter.id.desc()).first()
+    ll.append(qry2)
 
+# for obj in ll:
+#     print(obj)
+# print('-'*10)
+# print(len(ll))
 
-for obj in qry:
+for obj in ll:
     populate(obj.sn, obj.black_total, obj.color_total)

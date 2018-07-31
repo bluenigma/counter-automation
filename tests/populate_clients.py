@@ -26,12 +26,12 @@ def populate_clients():
         next(reader)
         for row in reader:
             new_client = Client(
-                                id=row[0],
-                                name=row[1],
-                                black_rate=row[2],
-                                color_rate=row[3],
-                                min_monthly_pay=row[4]
-                                )
+                id=row[0],
+                name=row[1],
+                black_rate=row[2],
+                color_rate=row[3],
+                min_monthly_pay=row[4]
+                )
             session.add(new_client)
             session.commit()
 
