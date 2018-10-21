@@ -54,6 +54,10 @@ class Client(Base):
     def __repr__(self):
         return(f'<Client: [{self.name}]>')
 
+def createDB():
+    engine = create_engine('sqlite:///modules/counter_autom.db')
+    Base.metadata.create_all(engine)
+
 if __name__ == "__main__":
     engine = create_engine('sqlite:///modules/counter_autom.db')
     Base.metadata.create_all(engine)
