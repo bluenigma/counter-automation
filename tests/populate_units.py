@@ -1,3 +1,6 @@
+"""Used for testing. Populates database with random copiers that have serial
+numbers linked to existing sn's of counter reports."""
+
 from sqlalchemy import create_engine, and_
 from sqlalchemy.orm import sessionmaker
 from modules.db_init import Unit, Counter, Client
@@ -14,7 +17,10 @@ vendor_list = ['Konica Minolta','Develop']
 model_list = ['C203','C220','C280','C360','C666']
 client_list = session.query(Client).all()
 
-def populate(sn,black,color):
+
+
+def add_unit(sn,black,color):
+    """Add a mock unit within specified parameters"""
     global vendor_list, model_list, client_list
     vendor = choice(vendor_list)
     model = choice(model_list)
@@ -29,28 +35,24 @@ def populate(sn,black,color):
     session.add(new_unit)
     session.commit()
 
-qry = session.query(Counter).filter(and_(Counter.date>=limiter_low,
-                                        Counter.date<limiter_high)).all()
-def remove_duplicate_sn(dbquery):
+def omit_duplicate_sn(dbquery):
+    """Check query for duplicate serial numbers and omit them."""
     a = []
     for obj in dbquery:
         a.append(obj.sn)
     b = list(set(a))
-    print("Removed {} redundant entries.".format(len(dbquery)-len(b)))
+    print("Omitted {} redundant entries.".format(len(dbquery)-len(b)))
     return(b)
 
-
-clean_feed = remove_duplicate_sn(qry)
-ll = []
-for obj in clean_feed:
-    qry2 = session.query(Counter).filter(Counter.sn.like(obj)).order_by(
+def run():
+    """Core function of this script."""
+    qry = session.query(Counter).filter(and_(Counter.date>=limiter_low,
+        Counter.date<limiter_high)).all()
+    clean_feed = omit_duplicate_sn(qry)
+    ll = []
+    for obj in clean_feed:
+        qry2 = session.query(Counter).filter(Counter.sn.like(obj)).order_by(
         Counter.id.desc()).first()
-    ll.append(qry2)
-
-# for obj in ll:
-#     print(obj)
-# print('-'*10)
-# print(len(ll))
-
-for obj in ll:
-    populate(obj.sn, obj.black_total, obj.color_total)
+        ll.append(qry2)
+    for obj in ll:
+        add_unit(obj.sn, obj.black_total, obj.color_total)
