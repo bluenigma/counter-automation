@@ -54,6 +54,19 @@ class Client(Base):
     def __repr__(self):
         return(f'<Client: [{self.name}]>')
 
+class MonthlyPrints(Base):
+    __tablename__ = 'monthly prints'
+    id = Column(Integer, Sequence('monthlyprints_id_seq'), primary_key=True)
+    sn = Column(String(50))
+    month = Column(Date)
+    blackPrints = Column(Integer)
+    colorPrints = Column(Integer)
+
+    def __repr__(self):
+        return(f'[{self.month}][{self.sn}][Black: {self.blackPrints}][Color:\
+        {self.colorPrints}]')
+
+
 def createDB():
     engine = create_engine('sqlite:///modules/counter_autom.db')
     Base.metadata.create_all(engine)
