@@ -3,11 +3,9 @@ from sqlalchemy.orm import sessionmaker
 from modules.db_init import Unit, Client, Base
 
 engine = create_engine('sqlite:///modules/counter_autom.db')
-
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
-
 selection_unit = []
 selection_client = []
 
@@ -33,38 +31,23 @@ class Selector(object):
 def add_unit(sn, vendor, model, black_count, color_count):
     qry = session.query(Unit).filter(Unit.sn.ilike(sn)).first()
     if qry != None:
-        raise UniqueError(f"Serial number {sn} already exists.")
-
-    while True:
-        cnfrm = input('Confirm new unit? (y/n)\n')
-        if cnfrm == 'y':
-            new_unit = Unit(
-            sn = sn,
-            vendor = vendor,
-            model = model,
-            black_count = black_count,
-            color_count = color_count,
-            )
-            session.add(new_unit)
-            session.commit()
-            print("New unit created.")
-            break
-        elif cnfrm == 'n':
-            print('Cancelled.')
-            break
-        else:
-            pass
+        raise UniqueError(f"Serial number [{sn}] already exists.")
+    new_unit = Unit(
+        sn = sn,
+        vendor = vendor,
+        model = model,
+        black_count = black_count,
+        color_count = color_count,
+    )
+    session.add(new_unit)
+    session.commit()
 
 def remove_unit(selection):
     for unit in selection:
-        prompt = input(f"Permanently remove {unit.sn} | {unit.model} ?")
-        if len(prompt) == 0:
-            session.delete(unit)
-            session.commit()
-        else:
-            continue
+        session.delete(unit)
+        session.commit()
 
-def select_units():
+def select_units_by():
     global selection
     criteria = input("Type in full or partial serial number."
     " To exit, hit RETURN.\n> ")
@@ -188,53 +171,46 @@ def clear_client_selection():
 def add_client(name,black_rate,color_rate,min_monthly_pay):
     '''Add new client'''
     # ensure floats at black_rate and color_rate
-    new_client = Client(
-    name = name,
-    black_rate = black_rate,
-    color_rate = color_rate,
-    min_monthly_pay = min_monthly_pay
-    )
-    session.add(new_client)
+    try:
+        new_client = Client(
+        name = str(name),
+        black_rate = float(black_rate),
+        color_rate = float(color_rate),
+        min_monthly_pay = int(min_monthly_pay)
+        )
+        session.add(new_client)
+        session.commit()
+    except Exception as e:
+        return 'Error: {}'.format(e)
+
+def client_modify_name(client, newName):
+    client.name = str(newName)
     session.commit()
 
-def client_modify_name(selection):
-    # This function should accept only single argument
-    pass
-
-def client_modify_blackrate(selection):
-    new_rate = input("New rates for black page: ")
+def client_modify_blackrate(client, newValue):
+    '''Change fee for a single black print'''
     try:
-        new_rate = float(new_rate.replace(',','.'))
+        new_rate = float(Amount.replace(',','.'))
     except ValueError:
-        print("Insert a valid number.")
-        return(client_modify_blackrate(selection))
-    for client in selection:
-        client.black_rate = new_rate
-        session.commit()
+        return 'Invalid new fee'
+    client.black_rate = newValue
+    session.commit()
 
 
-def client_modify_colorrate(selection):
-    new_rate = input("New rates for color page: ")
+def client_modify_colorrate(client, newValue):
+    '''Change fee for a single color print.'''
     try:
-        new_rate = float(new_rate.replace(',','.'))
+        float(newValue.replace(',','.'))
     except ValueError:
-        print("Insert a valid number.")
-        return(client_modify_colorrate(selection))
-    for client in selection:
-        client.color_rate = new_rate
-        session.commit()
+        return 'Invalid new fee'
+    client.color_rate = newValue
+    session.commit()
 
-def client_modify_min_monthly(selection):
-    new_minmonth = input("New minimal monthly payment: ")
+def client_modify_flat_monthly(client, newValue):
+    '''Change flat monthly fee for a client'''
     try:
-        new_minmonth = int(new_minmonth)
+        newValue = int(newValue)
     except ValueError:
-        print("Insert a valid number.")
-        return(client_modify_min_monthly(selection))
-    for client in selection:
-        client.min_monthly_pay = new_minmonth
-        session.commit()
-
-# ---------------------------------------------------------------
-if __name__ == '__main__':
-    pass
+        raise ValueError('New value must be an integer.')
+    client.min_monthly_pay = newValue
+    session.commit()
