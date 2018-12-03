@@ -1,7 +1,7 @@
 import os
 import sys
 from sqlalchemy import (Column, ForeignKey, Integer, String, Float,
-Date, ForeignKey, Sequence)
+Date, ForeignKey, Sequence, Boolean)
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
@@ -37,6 +37,7 @@ class Unit(Base):
 
     counters = relationship('Counter', back_populates='unit')
     client = relationship('Client', back_populates='units')
+    monthlyPrints = relationship('MonthlyPrints', back_populates='unit')
 
     def __repr__(self):
         return(f'<Unit: {self.sn}, Model: {self.model}>')
@@ -57,14 +58,27 @@ class Client(Base):
 class MonthlyPrints(Base):
     __tablename__ = 'monthly prints'
     id = Column(Integer, Sequence('monthlyprints_id_seq'), primary_key=True)
-    sn = Column(String(50))
+    sn = Column(String(50), ForeignKey('units.sn'))
     month = Column(Date)
     blackPrints = Column(Integer)
     colorPrints = Column(Integer)
 
+    unit = relationship('Unit', back_populates='monthlyPrints')
+
+
     def __repr__(self):
         return(f'[{self.month}][{self.sn}][Black: {self.blackPrints}][Color:\
         {self.colorPrints}]')
+
+class MonthlyPay(Base):
+    __tablename__ = 'monthly income'
+    id = Column(Integer, Sequence('monthlypay_id_seq'), primary_key=True)
+    month = Column(Date)
+    client = Column(String(50))
+    amount = Column(Float)
+    paid = Boolean()
+
+    #relationship
 
 
 def createDB():
