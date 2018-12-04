@@ -1,4 +1,15 @@
 import configparser, getpass
+from os.path import exists
+from modules import db_init
+
+def check_db():
+    '''Check if database exists, if not, then create it.'''
+    if not exists('modules/counter_autom.db'):
+        db_init.createDB()
+    else:
+        pass
+
+check_db()
 
 mail_address = input("Email address that will be searched for counters:\n> ")
 imap_server = input("IMAP Server:\n> ")

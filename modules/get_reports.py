@@ -1,13 +1,11 @@
 import imaplib, email, re, getpass, configparser
 from datetime import datetime, date
 from modules.db_init import Counter,Base
-from modules import db_init
-from os.path import exists
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 config = configparser.ConfigParser()
-config.read('modules/parameters.ini')
+config.read('parameters.ini')
 target_server = config['DEFAULT']['imap_server']
 target_email = config['DEFAULT']['mail_address']
 
@@ -89,12 +87,6 @@ def translate_mails(indata):
             else:
                 pass
 
-def check_db():
-    '''Check if database exists, if not, then create it.'''
-    if not exists('modules/counter_autom.db'):
-        db_init.createDB()
-    else:
-        pass
 
 def insert_intable(counter_list):
     '''Insert list of counter objects into db'''
@@ -103,6 +95,5 @@ def insert_intable(counter_list):
         session.commit()
 
 if __name__ == '__main__':
-    check_db()
     translate_mails(fetch_email())
     insert_intable(counterList)
