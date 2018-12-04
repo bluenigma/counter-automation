@@ -7,7 +7,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 config = configparser.ConfigParser()
-config.read('modules/parameters.conf')
+config.read('modules/parameters.ini')
 target_server = config['DEFAULT']['imap_server']
 target_email = config['DEFAULT']['mail_address']
 

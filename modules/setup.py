@@ -19,7 +19,7 @@ config['DEFAULT'] = {'database' : 'counter_autom.db',
                     'imap_server' : imap_server,
                     'email_password' : email_password}
 
-with open('parameters.conf', 'w') as configfile:
+with open('parameters.ini', 'w') as configfile:
     config.write(configfile)
 
 print("Setup complete. You can always re-run this script to change settings.")
