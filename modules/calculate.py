@@ -41,6 +41,7 @@ def calculate_month(unitList, year, month):
 
     Yields:
         Tuple (Unit object, black count, color count)"""
+    dat = date(year,month,1)
     if month in range(2,13):
         prevMonth = month - 1
     elif month == 1:
@@ -51,10 +52,24 @@ def calculate_month(unitList, year, month):
         target = getCounter(i, year, month)
         prev = getCounter(i, year, prevMonth)
         if target is not None and prev is not None:
-            yield i, target.black_total - prev.black_total, target.color_total - prev.color_total
+            # yield i, dat, target.black_total - prev.black_total, target.color_total - prev.color_total
+            newRep = MonthlyPrints(
+            sn = i.sn,
+            month = dat,
+            blackPrints = target.black_total - prev.black_total,
+            colorPrints = target.color_total - prev.color_total
+            )
+            session.add(newRep)
+            session.commit()
+        elif target is None and prev is None:
+            print(f'{i.sn} - No counter report for month {prevMonth}/{year} and {month}/{year}')
+            continue
         elif prev is None:
-            print(f'{i.sn} - oh')
+            print(f'{i.sn} - No counter report for month {prevMonth}/{year}')
             continue # yield i, target.black_total - i.black_count, target.color_count - i.color_count
+        elif target is None:
+            print(f'{i.sn} - No counter report for month {month}/{year}')
+            continue
         else:
             print(f'{i.sn} - doh')
             continue
@@ -69,30 +84,30 @@ def calculate_monthSingle(unit, year, month):
     target = getCounter(unit, year, month)
     prev = getCounter(unit, year, prevMonth)
     if target is not None and prev is not None:
-        return i, target.black_total - prev.black_total, target.color_total - prev.color_total
+        return unit, target.black_total - prev.black_total, target.color_total - prev.color_total
+    elif target is None and prev is None:
+        return f'{i.sn} - No counter report for month {prevMonth}/{year} and {month}/{year}'
     elif prev is None:
-        return f'{i.sn} - oh'
+        return f'{i.sn} - No counter report for month {prevMonth}/{year}'
         # yield i, target.black_total - i.black_count, target.color_count - i.color_count
+    elif target is None:
+        return f'{i.sn} - No counter report for month {month}/{year}'
     else:
         return f'{i.sn} - doh'
 
-
+def intodb(sn,date,bP,cP):
+    newRep = MonthlyPrints(
+    sn = sn,
+    month = date,
+    blackPrints = bP,
+    colorPrints = cP
+    )
+    session.add(newRep)
+    session.commit()
 
 def clientPayment():
     '''Calculate monthly payment for client'''
     pass
 
-import time
-
-bef = time.time()
-calculate_month(q,2018,10)
-aft = time.time()
-t1 = aft - bef
-print(t1, ' seconds.')
-
-bef = time.time()
-for i in q:
-    calculate_monthSingle(i,2018,10)
-aft = time.time()
-t2 = aft - bef
-print(t2, ' seconds.')
+for i in range(1,13):
+    calculate_month(q,2018,i)
