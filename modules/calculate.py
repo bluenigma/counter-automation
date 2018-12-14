@@ -105,9 +105,35 @@ def intodb(sn,date,bP,cP):
     session.add(newRep)
     session.commit()
 
-def clientPayment():
+mockdate = date(2018,5,1)
+def clientPayment(clientid, date):
     '''Calculate monthly payment for client'''
-    pass
+    client = session.query(Client).filter(Client.id==clientid).one()
+    prints = session.query(MonthlyPrints).join(Unit).join(Client)\
+    .filter(Client.id==clientid)\
+    .filter(Unit.sn==MonthlyPrints.sn)\
+    .filter(MonthlyPrints.month==date)
+    btot = 0
+    ctot = 0
+    for print in prints:
+        btot += print.blackPrints
+        ctot += print.colorPrints
+    amo = btot * client.black_rate + ctot * client.color_rate
+    if amo <= client.min_monthly_pay:
+        amo = client.min_monthly_pay
+    else:
+        pass
+    newrep = MonthlyPay(month=date,client=client.id,amount=amo)
+    session.add(newrep)
+    session.commit()
 
-for i in range(1,13):
-    calculate_month(q,2018,i)
+def run_print_reports():
+    for i in range(1,13):
+        calculate_month(q,2018,i)
+
+def run_payment_reports():
+    q = session.query(Client).all()
+    for n in q:
+        for i in range(1,13):
+            dat = date(2018,i,1)
+            clientPayment(n.id,dat)
