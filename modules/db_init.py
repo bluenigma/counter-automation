@@ -51,6 +51,7 @@ class Client(Base):
     min_monthly_pay = Column(Integer)
 
     units = relationship('Unit', back_populates='client')
+    payments = relationship('MonthlyPay', back_populates='cl_id')
 
     def __repr__(self):
         return(f'<Client: [{self.name}]>')
@@ -68,17 +69,17 @@ class MonthlyPrints(Base):
 
     def __repr__(self):
         return(f'[{self.month}][{self.sn}][Black: {self.blackPrints}][Color:\
-        {self.colorPrints}]')
+{self.colorPrints}]')
 
 class MonthlyPay(Base):
     __tablename__ = 'monthly income'
     id = Column(Integer, Sequence('monthlypay_id_seq'), primary_key=True)
     month = Column(Date)
-    client = Column(String(50))
+    client = Column(String(50), ForeignKey('clients.id'))
     amount = Column(Float)
     paid = Boolean()
 
-    #relationship
+    cl_id = relationship('Client',back_populates='payments')
 
 
 def createDB():
