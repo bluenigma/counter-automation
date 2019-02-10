@@ -4,3 +4,6 @@
 **/config
 **/config.txt
 **/parameters.conf
+.env
+actv
+venv
