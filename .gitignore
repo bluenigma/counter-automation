@@ -7,3 +7,5 @@
 .env
 actv
 venv
+app.db
+app/inits.sh
