@@ -11,8 +11,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 class Counter(db.Model):
     __tablename__ = 'counters'
     id = db.Column(db.Integer, primary_key=True)
-    date = db.Column(db.Datetime)
-    sn = db.Column(db.String(32), db.ForeignKey('unit.sn'))
+    date = db.Column(db.DateTime)
+    sn = db.Column(db.String(32), db.ForeignKey('units.sn'))
     black_total = db.Column(db.Integer)
     color_total = db.Column(db.Integer)
 
@@ -45,8 +45,7 @@ class Client(db.Model):
     min_monthly_pay = db.Column(db.Integer)
     units = db.relationship('Unit', backref='clients')
     # --------- Contact info ---------
-    city = db.Column(db.String(64))
-    street = db.Column(db.String(64))
+    address = db.Column(db.String(128))
     email = db.Column(db.String(64))
     phone = db.Column(db.String(64))
     notes = db.Column(db.String(256))
