@@ -5,4 +5,5 @@
 **/config.txt
 **/parameters.conf
 venv
+counter_automation/counter_automation/.env
 reference_files
